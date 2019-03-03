@@ -10,7 +10,7 @@ export class App extends React.Component<{}, IState> {
     public render() {
         return (
             <div className="container">
-                <Remodal />
+                <Remodal isOpen={true}>Remodal</Remodal>
             </div>
         );
     }

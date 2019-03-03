@@ -1,21 +1,61 @@
 import * as React from "react";
 import styled from "styled-components";
 
-const Wrapper = styled.div`
+interface IStyleProps {
+    modalOverlay?: React.CSSProperties;
+    modalWindow?: React.CSSProperties;
+}
+
+interface IRemodalProps {
+    isOpen: boolean;
+    style: IStyleProps;
+}
+
+const defaultProps: IRemodalProps = {
+    isOpen: false,
+    style: {
+        modalOverlay: {},
+        modalWindow: {},
+    },
+};
+
+interface IOverlayProps {
+    isOpen: boolean;
+}
+
+const Overlay = styled.div`
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 100%;
-    color: red;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    opacity: ${(props: IOverlayProps) => (props.isOpen ? "1" : "0")};
+    visibility: ${(props: IOverlayProps) => (props.isOpen ? "visible" : "hidden")};
 `;
 
-interface IProps {
-    size?: number;
-}
+const Window = styled.div`
+    position: fixed;
+    background: white;
+    width: 80%;
+    height: auto;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+`;
 
-export class Remodal extends React.Component<IProps, {}> {
-    public static defaultProps: Partial<IProps> = {
-        size: 180,
-    };
+type StatelessComponentArgs<T> = T & { children?: React.ReactNode };
 
-    public render() {
-        return <Wrapper>Remodal</Wrapper>;
-    }
-}
+export const Remodal = ({
+    children,
+    isOpen,
+    style,
+}: StatelessComponentArgs<IRemodalProps>): React.ReactElement<IRemodalProps> => {
+    return (
+        <Overlay isOpen={isOpen} style={style.modalOverlay}>
+            <Window style={style.modalWindow}>{children}</Window>
+        </Overlay>
+    );
+};
+
+Remodal.defaultProps = defaultProps;
