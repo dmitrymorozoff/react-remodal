@@ -1,3 +1,3 @@
-import { Remodal } from "./components";
+import { Remodal } from "./remodal";
 
 export { Remodal };
