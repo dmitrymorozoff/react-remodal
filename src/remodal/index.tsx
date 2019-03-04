@@ -38,10 +38,6 @@ export const Remodal = ({
         closeModal();
     }
 
-    // if (!open) {
-    //     return <React.Fragment>{null}</React.Fragment>;
-    // }
-
     return (
         <Portal>
             <Outer isOpen={open}>
