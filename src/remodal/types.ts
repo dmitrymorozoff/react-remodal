@@ -17,8 +17,8 @@ export interface IButtonItemProps {
 }
 
 type OnCloseCallbackFunction = () => void;
-type OnOverlayClickCallbackFunction = () => void;
-type OnEscKeyDownCallbackFunction = () => void;
+type OnOverlayClickCallbackFunction = (event: React.MouseEvent<HTMLDivElement>) => void;
+type OnEscKeyDownCallbackFunction = (event: KeyboardEvent) => void;
 
 export interface IRemodalProps {
     closeOnOverlayClick: boolean;
@@ -34,6 +34,7 @@ export interface IRemodalProps {
     animationDuration: number;
     isScrollable: boolean;
     title: string;
+    innerHTML: string;
     customIcon: JSX.Element;
 }
 
@@ -83,6 +84,7 @@ export const defaultProps = {
     animationDuration: 300,
     isScrollable: false,
     title: "Title",
+    innerHTML: "Description <b>with bold text</b><br/>",
 };
 
 export type StatelessComponentArgs<T> = T & { children?: React.ReactNode };

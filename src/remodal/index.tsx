@@ -1,3 +1,4 @@
+const Parser = require("html-react-parser");
 import * as React from "react";
 import { Buttons } from "./components/buttons";
 import { CloseButton } from "./components/close-button";
@@ -58,7 +59,7 @@ export class Remodal extends React.Component<IRemodalProps, IRemodalState> {
                 isKeyDown: true,
             });
             this.closeModal();
-            onEscKeyDown();
+            onEscKeyDown(event);
             this.setState({
                 isKeyDown: false,
             });
@@ -92,10 +93,10 @@ export class Remodal extends React.Component<IRemodalProps, IRemodalState> {
         event.stopPropagation();
     };
 
-    public onOverlayClickHandler = () => {
+    public onOverlayClickHandler = (event: React.MouseEvent<HTMLDivElement>) => {
         this.closeModal();
         const { onOverlayClick } = this.props;
-        onOverlayClick();
+        onOverlayClick(event);
     };
 
     public render() {
@@ -108,6 +109,7 @@ export class Remodal extends React.Component<IRemodalProps, IRemodalState> {
             closeButtonSize,
             isScrollable,
             title,
+            innerHTML,
         } = this.props;
         const { open } = this.state;
         return (
@@ -134,7 +136,10 @@ export class Remodal extends React.Component<IRemodalProps, IRemodalState> {
                                 />
                             )}
                             {title && <Title style={style.title}>{title}</Title>}
-                            <Content style={style.content}>{children}</Content>
+                            <Content style={style.content}>
+                                {innerHTML && Parser(innerHTML)}
+                                {children}
+                            </Content>
                         </Main>
                         <Buttons
                             buttons={buttons}
