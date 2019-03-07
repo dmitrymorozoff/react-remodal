@@ -1,20 +1,30 @@
-import { useEffect } from "react";
+import * as React from "react";
 import * as ReactDOM from "react-dom";
-import { defaultProps, IRemodalPortalProps, StatelessComponentArgs } from "./types";
+import { defaultProps, IRemodalPortalProps } from "./types";
 
-export const Portal = ({ children, portalClassName }: StatelessComponentArgs<IRemodalPortalProps>) => {
-    const node = document.createElement("div");
-    const parentElement = document.body;
+export class Portal extends React.Component<IRemodalPortalProps, {}> {
+    public static defaultProps: Partial<IRemodalPortalProps> = defaultProps;
 
-    useEffect(() => {
-        node.className = portalClassName;
-        parentElement.appendChild(node);
-        return () => {
-            parentElement.removeChild(node);
-        };
-    });
+    public parentElement = document.body;
+    public node: Element;
 
-    return ReactDOM.createPortal(children, node);
-};
+    public constructor(props: IRemodalPortalProps) {
+        super(props);
+        this.node = document.createElement("div");
+    }
 
-Portal.defaultProps = defaultProps;
+    public componentDidMount() {
+        const { portalClassName } = this.props;
+        this.node.className = portalClassName;
+        this.parentElement.appendChild(this.node);
+    }
+
+    public componentWillUnmount() {
+        this.parentElement.removeChild(this.node);
+    }
+
+    public render() {
+        const { children } = this.props;
+        return ReactDOM.createPortal(children, this.node);
+    }
+}

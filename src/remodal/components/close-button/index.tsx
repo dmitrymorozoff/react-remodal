@@ -1,12 +1,13 @@
 import styled from "styled-components";
+import { ICloseButtonProps } from "./types";
 
 export const CloseButton = styled.span`
     position: absolute;
     cursor: pointer;
     top: 16px;
     right: 16px;
-    width: 16px;
-    height: 16px;
+    width: ${(props: ICloseButtonProps) => props.closeButtonSize}px;
+    height: ${(props: ICloseButtonProps) => props.closeButtonSize}px;
     &:before,
     &:after {
         position: absolute;

@@ -37,6 +37,7 @@
         "@types/react-syntax-highlighter": "10.1.0",
         "awesome-typescript-loader": "^5.2.1",
         "babel-loader": "^8.0.5",
+        "babel-plugin-styled-components": "^1.10.0",
         "enzyme": "^3.5.0",
         "enzyme-adapter-react-16": "^1.2.0",
         "enzyme-to-json": "^3.3.4",

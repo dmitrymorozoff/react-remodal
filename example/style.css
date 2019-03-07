@@ -9,11 +9,12 @@
 }
 
 .btn {
-    font-size: 16px;
-    padding: 12px;
-    border-radius: 3px;
+    font-size: 22px;
+    padding: 16px 32px;
     border: none;
     cursor: pointer;
     outline: none;
     font-family: "Roboto", sans-serif;
+    background-color: #fff;
+    border: 2px solid black;
 }

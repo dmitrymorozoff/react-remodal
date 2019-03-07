@@ -7,8 +7,11 @@ export const Outer = styled.div`
     left: 0;
     width: 100%;
     height: 100%;
-    opacity: ${(props: IOuterProps) => (props.isOpen ? "1" : "0")};
-    visibility: ${(props: IOuterProps) => (props.isOpen ? "visible" : "hidden")};
     overflow: auto;
     z-index: 1;
+    opacity: ${(props: IOuterProps) => (props.isOpen ? "1" : "0")};
+    visibility: ${(props: IOuterProps) => (props.isOpen ? "visible" : "hidden")};
+    transition: ${(props: IOuterProps) => props.animationDuration}ms;
+    perspective: 1000px;
+    background: rgba(0, 0, 0, 0.6);
 `;
