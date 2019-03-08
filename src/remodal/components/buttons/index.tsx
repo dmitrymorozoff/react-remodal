@@ -1,6 +1,8 @@
+const cx = require("classnames");
 import * as React from "react";
 import styled from "styled-components";
 import { IButtonItemProps } from "../../types";
+import { BASE_CLASSNAME } from "../../vars";
 import { IButtonProps, IButtonsProps, StatelessComponentArgs } from "./types";
 
 export const ButtonsWrapper = styled.div`
@@ -8,7 +10,7 @@ export const ButtonsWrapper = styled.div`
     display: flex;
     flex: 0 1 auto;
     width: 100%;
-    border-top: 1px solid #000;
+    border-top: 2px solid #000;
 `;
 
 export const Button = styled.button`
@@ -34,7 +36,7 @@ export const Button = styled.button`
         background-color: rgba(0, 0, 0, 0.1);
     }
     &:not(:first-of-type) {
-        border-left: 1px solid #000;
+        border-left: 2px solid #000;
     }
 `;
 
@@ -49,10 +51,23 @@ export const Buttons = ({
     }
     const buttonSize = 100 / countButtons;
     return (
-        <ButtonsWrapper style={buttonsWrapperStyle}>
+        <ButtonsWrapper
+            style={buttonsWrapperStyle}
+            className={cx(`${BASE_CLASSNAME}__buttons`, {
+                [`${BASE_CLASSNAME}__buttons_open`]: open,
+            })}
+        >
             {buttons.map(({ title, handler }: IButtonItemProps, index: number) => {
                 return (
-                    <Button size={buttonSize} onClick={handler} key={index.toString()} style={buttonStyle}>
+                    <Button
+                        size={buttonSize}
+                        onClick={handler}
+                        key={index.toString()}
+                        style={buttonStyle}
+                        className={cx(`${BASE_CLASSNAME}__button`, {
+                            [`${BASE_CLASSNAME}__button_open`]: open,
+                        })}
+                    >
                         {title}
                     </Button>
                 );

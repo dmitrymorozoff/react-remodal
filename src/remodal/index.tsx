@@ -1,4 +1,5 @@
 const Parser = require("html-react-parser");
+const cx = require("classnames");
 import * as React from "react";
 import { Buttons } from "./components/buttons";
 import { CloseButton } from "./components/close-button";
@@ -9,6 +10,7 @@ import { Outer } from "./components/outer";
 import { Portal } from "./components/portal";
 import { Title } from "./components/title";
 import { defaultProps, IRemodalProps, IRemodalState } from "./types";
+import { BASE_CLASSNAME } from "./vars";
 
 export class Remodal extends React.Component<IRemodalProps, IRemodalState> {
     public static defaultProps: Partial<IRemodalProps> = defaultProps;
@@ -52,7 +54,7 @@ export class Remodal extends React.Component<IRemodalProps, IRemodalState> {
         }
     }
 
-    public onKeyDownHandler = (event: KeyboardEvent) => {
+    public onKeyDownHandler = (event: KeyboardEvent): void => {
         const { closeOnEsc, onEscKeyDown } = this.props;
         if (closeOnEsc && event.keyCode === 27) {
             this.setState({
@@ -66,7 +68,7 @@ export class Remodal extends React.Component<IRemodalProps, IRemodalState> {
         }
     };
 
-    public openModal = () => {
+    public openModal = (): void => {
         this.setState({
             open: true,
         });
@@ -77,7 +79,7 @@ export class Remodal extends React.Component<IRemodalProps, IRemodalState> {
         }
     };
 
-    public closeModal = () => {
+    public closeModal = (): void => {
         this.setState({
             open: false,
         });
@@ -89,17 +91,17 @@ export class Remodal extends React.Component<IRemodalProps, IRemodalState> {
         }
     };
 
-    public onModalClick = (event: React.MouseEvent<HTMLDivElement>) => {
+    public onModalClick = (event: React.MouseEvent<HTMLDivElement>): void => {
         event.stopPropagation();
     };
 
-    public onOverlayClickHandler = (event: React.MouseEvent<HTMLDivElement>) => {
+    public onOverlayClickHandler = (event: React.MouseEvent<HTMLDivElement>): void => {
         this.closeModal();
         const { onOverlayClick } = this.props;
         onOverlayClick(event);
     };
 
-    public render() {
+    public render(): JSX.Element {
         const {
             children,
             style,
@@ -110,15 +112,20 @@ export class Remodal extends React.Component<IRemodalProps, IRemodalState> {
             isScrollable,
             title,
             innerHTML,
+            className,
+            portalClassName,
+            customCloseIcon,
         } = this.props;
         const { open } = this.state;
+
         return (
-            <Portal>
+            <Portal portalClassName={portalClassName}>
                 <Outer
                     isOpen={open}
                     style={style.overlay}
                     animationDuration={animationDuration}
                     onClick={this.onOverlayClickHandler}
+                    className={cx(BASE_CLASSNAME, className, { [`${BASE_CLASSNAME}_open`]: open })}
                 >
                     <Modal
                         onClick={this.onModalClick}
@@ -126,17 +133,43 @@ export class Remodal extends React.Component<IRemodalProps, IRemodalState> {
                         isOpen={open}
                         animationDuration={animationDuration}
                         isScrollable={isScrollable}
+                        className={cx(`${BASE_CLASSNAME}__modal`, {
+                            [`${BASE_CLASSNAME}__modal_open`]: open,
+                        })}
                     >
-                        <Main style={style.main}>
+                        <Main
+                            style={style.main}
+                            className={cx(`${BASE_CLASSNAME}__main`, {
+                                [`${BASE_CLASSNAME}__main_open`]: open,
+                            })}
+                        >
                             {isShowCloseButton && (
                                 <CloseButton
+                                    customCloseIcon={customCloseIcon}
                                     closeButtonSize={closeButtonSize}
                                     onClick={this.closeModal}
                                     style={style.closeButton}
+                                    className={cx(`${BASE_CLASSNAME}__close-btn`, {
+                                        [`${BASE_CLASSNAME}__close-btn_open`]: open,
+                                    })}
                                 />
                             )}
-                            {title && <Title style={style.title}>{title}</Title>}
-                            <Content style={style.content}>
+                            {title && (
+                                <Title
+                                    style={style.title}
+                                    className={cx(`${BASE_CLASSNAME}__title`, {
+                                        [`${BASE_CLASSNAME}__title_open`]: open,
+                                    })}
+                                >
+                                    {title}
+                                </Title>
+                            )}
+                            <Content
+                                style={style.content}
+                                className={cx(`${BASE_CLASSNAME}__content`, {
+                                    [`${BASE_CLASSNAME}__content_open`]: open,
+                                })}
+                            >
                                 {innerHTML && Parser(innerHTML)}
                                 {children}
                             </Content>

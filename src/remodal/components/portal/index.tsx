@@ -1,10 +1,8 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import { defaultProps, IRemodalPortalProps } from "./types";
+import { IRemodalPortalProps } from "./types";
 
 export class Portal extends React.Component<IRemodalPortalProps, {}> {
-    public static defaultProps: Partial<IRemodalPortalProps> = defaultProps;
-
     public parentElement = document.body;
     public node: Element;
 

@@ -35,13 +35,44 @@ export interface IRemodalProps {
     isScrollable: boolean;
     title: string;
     innerHTML: string;
-    customIcon: JSX.Element;
+    className: string;
+    portalClassName: string;
+    customCloseIcon: JSX.Element;
 }
 
 export interface IRemodalState {
     open: boolean;
     isKeyDown: boolean;
 }
+
+const defaultStyles = {
+    modal: {
+        width: "800px",
+    },
+    overlay: {
+        backgroundColor: "rgba(185,185,185,0.95)",
+    },
+    main: {
+        padding: "40px",
+    },
+    closeButton: {
+        width: "26px",
+        height: "26px",
+    },
+    title: {
+        fontSize: "32px",
+    },
+    content: {
+        fontSize: "22px",
+    },
+    buttonsWrapper: {
+        borderWidth: "2px",
+    },
+    button: {
+        height: "80px",
+        fontSize: "22px",
+    },
+};
 
 export const defaultProps = {
     closeOnOverlayClick: true,
@@ -50,34 +81,7 @@ export const defaultProps = {
     onEscKeyDown: () => ({}),
     onClose: () => ({}),
     onOverlayClick: () => ({}),
-    style: {
-        modal: {
-            width: "800px",
-        },
-        overlay: {
-            backgroundColor: "rgba(185,185,185,0.95)",
-        },
-        main: {
-            padding: "40px",
-        },
-        closeButton: {
-            width: "26px",
-            height: "26px",
-        },
-        title: {
-            fontSize: "32px",
-        },
-        content: {
-            fontSize: "22px",
-        },
-        buttonsWrapper: {
-            borderWidth: "2px",
-        },
-        button: {
-            height: "80px",
-            fontSize: "22px",
-        },
-    },
+    style: {},
     isShowCloseButton: true,
     closeButtonSize: 16,
     buttons: [{ title: "Close", handler: () => ({}) }, { title: "Submit", handler: () => ({}) }],
@@ -85,6 +89,8 @@ export const defaultProps = {
     isScrollable: false,
     title: "Title",
     innerHTML: "Description <b>with bold text</b><br/>",
+    className: "my-custom-remodal-class",
+    portalClassName: "react-remodal-portal",
 };
 
 export type StatelessComponentArgs<T> = T & { children?: React.ReactNode };
