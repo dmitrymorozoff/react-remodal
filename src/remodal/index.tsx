@@ -4,6 +4,7 @@ import * as React from "react";
 import { Buttons } from "./components/buttons";
 import { CloseButton } from "./components/close-button";
 import { Content } from "./components/content";
+import { FullScreenButton } from "./components/fullscreen-button";
 import { Main } from "./components/main";
 import { Modal } from "./components/modal";
 import { Outer } from "./components/outer";
@@ -115,6 +116,9 @@ export class Remodal extends React.Component<IRemodalProps, IRemodalState> {
             className,
             portalClassName,
             customCloseIcon,
+            isFullScreen,
+            fullScreenButtonSize,
+            isShowFullScreenButton,
         } = this.props;
         const { open } = this.state;
 
@@ -151,6 +155,16 @@ export class Remodal extends React.Component<IRemodalProps, IRemodalState> {
                                     style={style.closeButton}
                                     className={cx(`${BASE_CLASSNAME}__close-btn`, {
                                         [`${BASE_CLASSNAME}__close-btn_open`]: open,
+                                    })}
+                                />
+                            )}
+                            {isShowFullScreenButton && (
+                                <FullScreenButton
+                                    customFullScreenIcon={customCloseIcon}
+                                    fullScreenButtonSize={fullScreenButtonSize}
+                                    style={style.closeButton}
+                                    className={cx(`${BASE_CLASSNAME}__fullscreen-btn`, {
+                                        [`${BASE_CLASSNAME}__fullscreen_open`]: open,
                                     })}
                                 />
                             )}

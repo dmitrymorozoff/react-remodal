@@ -29,7 +29,10 @@ export interface IRemodalProps {
     onOverlayClick: OnOverlayClickCallbackFunction;
     style: IStyleProps;
     isShowCloseButton: boolean;
+    isShowFullScreenButton: boolean;
+    isFullScreen: boolean;
     closeButtonSize: number;
+    fullScreenButtonSize: number;
     buttons: IButtonItemProps[];
     animationDuration: number;
     isScrollable: boolean;
@@ -83,7 +86,10 @@ export const defaultProps = {
     onOverlayClick: () => ({}),
     style: {},
     isShowCloseButton: true,
+    isShowFullScreenButton: true,
+    isFullScreen: true,
     closeButtonSize: 16,
+    fullScreenButtonSize: 16,
     buttons: [{ title: "Close", handler: () => ({}) }, { title: "Submit", handler: () => ({}) }],
     animationDuration: 300,
     isScrollable: false,

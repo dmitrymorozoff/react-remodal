@@ -33,7 +33,11 @@ export class App extends React.Component<{}, IState> {
                 <button className="btn" onClick={this.onOpenModalHandler}>
                     Open Modal
                 </button>
-                <Remodal isOpen={isOpenModal} onClose={this.onCloseModalHandler}>
+                <Remodal
+                    isOpen={isOpenModal}
+                    onClose={this.onCloseModalHandler}
+                    customCloseIcon={<button>close</button>}
+                >
                     Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis mollitia natus, eum
                     non voluptatibus ratione, velit quidem itaque rem quam obcaecati saepe repellendus
                     voluptatem vitae ut doloremque rerum cupiditate eaque quisquam doloribus qui nisi minima!
