@@ -1,51 +1,41 @@
 import * as React from "react";
+import { useState } from "react";
 import * as ReactDOM from "react-dom";
-import { Remodal } from "../src";
+// import { ModalProvider, useModal } from "react-modal-hook";
+import { Remodal, RemodalProvider, useRemodal } from "../src";
 
 interface IState {
     isOpenModal: boolean;
 }
 
-export class App extends React.Component<{}, IState> {
-    constructor(props: any) {
-        super(props);
-        this.state = {
-            isOpenModal: false,
-        };
-    }
+export const App = () => {
+    const [openRemodal1, closeRemodal1] = useRemodal(() => (
+        <Remodal isOpen={true} onClose={closeRemodal1}>
+            2
+        </Remodal>
+    ));
 
-    public onOpenModalHandler = () => {
-        this.setState({
-            isOpenModal: true,
-        });
-    };
+    const [openRemodal2, closeRemodal2] = useRemodal(() => (
+        <Remodal isOpen={true} onClose={closeRemodal2}>
+            1
+            <button className="btn" onClick={openRemodal1}>
+                Open Modal 2
+            </button>
+        </Remodal>
+    ));
+    console.log({ openRemodal1, openRemodal2 });
+    return (
+        <div className="container">
+            <button className="btn" onClick={openRemodal2}>
+                Open Modal
+            </button>
+        </div>
+    );
+};
 
-    public onCloseModalHandler = () => {
-        this.setState({
-            isOpenModal: false,
-        });
-    };
-
-    public render() {
-        const { isOpenModal } = this.state;
-        return (
-            <div className="container">
-                <button className="btn" onClick={this.onOpenModalHandler}>
-                    Open Modal
-                </button>
-                <Remodal
-                    isOpen={isOpenModal}
-                    onClose={this.onCloseModalHandler}
-                    customCloseIcon={<button>close</button>}
-                >
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis mollitia natus, eum
-                    non voluptatibus ratione, velit quidem itaque rem quam obcaecati saepe repellendus
-                    voluptatem vitae ut doloremque rerum cupiditate eaque quisquam doloribus qui nisi minima!
-                    Id, delectus modi? Nesciunt, voluptatum!
-                </Remodal>
-            </div>
-        );
-    }
-}
-
-ReactDOM.render(<App />, document.getElementById("root"));
+ReactDOM.render(
+    <RemodalProvider>
+        <App />
+    </RemodalProvider>,
+    document.getElementById("root"),
+);

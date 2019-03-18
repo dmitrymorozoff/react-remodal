@@ -3,6 +3,7 @@ export interface IStyleProps {
     modal?: React.CSSProperties;
     main?: React.CSSProperties;
     closeButton?: React.CSSProperties;
+    fullScreenButton?: React.CSSProperties;
     title?: React.CSSProperties;
     content?: React.CSSProperties;
     buttonsWrapper?: React.CSSProperties;
@@ -41,10 +42,12 @@ export interface IRemodalProps {
     className: string;
     portalClassName: string;
     customCloseIcon: JSX.Element;
+    customFullScreenIcon: JSX.Element;
 }
 
 export interface IRemodalState {
     open: boolean;
+    fullscreen: boolean;
     isKeyDown: boolean;
 }
 
@@ -59,6 +62,10 @@ const defaultStyles = {
         padding: "40px",
     },
     closeButton: {
+        width: "26px",
+        height: "26px",
+    },
+    fullScreenButton: {
         width: "26px",
         height: "26px",
     },
@@ -77,6 +84,8 @@ const defaultStyles = {
     },
 };
 
+export const PORTAL_CLASSNAME = "react-remodal-portal";
+
 export const defaultProps = {
     closeOnOverlayClick: true,
     isOpen: false,
@@ -87,16 +96,14 @@ export const defaultProps = {
     style: {},
     isShowCloseButton: true,
     isShowFullScreenButton: true,
-    isFullScreen: true,
-    closeButtonSize: 16,
-    fullScreenButtonSize: 16,
+    closeButtonSize: 20,
+    fullScreenButtonSize: 20,
     buttons: [{ title: "Close", handler: () => ({}) }, { title: "Submit", handler: () => ({}) }],
     animationDuration: 300,
     isScrollable: false,
-    title: "Title",
-    innerHTML: "Description <b>with bold text</b><br/>",
+    title: "Modal Component",
     className: "my-custom-remodal-class",
-    portalClassName: "react-remodal-portal",
+    portalClassName: PORTAL_CLASSNAME,
 };
 
 export type StatelessComponentArgs<T> = T & { children?: React.ReactNode };

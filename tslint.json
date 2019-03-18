@@ -6,6 +6,7 @@
     "rules": {
         "triple-equals": true,
         "no-var-requires": false,
+        "no-empty": false,
         "space-before-function-paren": [
             true,
             {

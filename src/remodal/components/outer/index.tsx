@@ -1,5 +1,11 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { IOuterProps } from "./types";
+
+const fullScreenStyles = css`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+`;
 
 export const Outer = styled.div`
     position: fixed;
@@ -12,6 +18,8 @@ export const Outer = styled.div`
     opacity: ${(props: IOuterProps) => (props.isOpen ? "1" : "0")};
     visibility: ${(props: IOuterProps) => (props.isOpen ? "visible" : "hidden")};
     transition: ${(props: IOuterProps) => props.animationDuration}ms;
+    transition-timing-function: ease-out;
     perspective: 1000px;
-    background: rgba(0, 0, 0, 0.6);
+    background: rgba(0, 0, 0, 0.75);
+    ${(props: IOuterProps) => props.isFullScreen && fullScreenStyles}
 `;

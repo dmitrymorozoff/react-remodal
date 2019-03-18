@@ -3,16 +3,24 @@ import { IFullScreenIconProps } from "./types";
 
 export const FullScreenIcon: React.SFC<IFullScreenIconProps> = ({ size }: IFullScreenIconProps) => {
     return (
-        <svg width={`${size}px`} height={`${size}px`} preserveAspectRatio="xMidYMid meet" viewBox="0 0 15 15">
-            <g fill="none" fillRule="evenodd" stroke="none" strokeWidth="1">
-                <g fill="#000000">
-                    <g>
-                        <path
-                            d="M2,9 L0,9 L0,14 L5,14 L5,12 L2,12 L2,9 L2,9 Z M0,5 L2,5 L2,2 L5,2 L5,0 L0,0 L0,5 L0,5 Z M12,12 L9,12 L9,14 L14,14 L14,9 L12,9 L12,12 L12,12 Z M9,0 L9,2 L12,2 L12,5 L14,5 L14,0 L9,0 L9,0 Z"
-                            id="Shape"
-                        />
-                    </g>
-                </g>
+        <svg
+            width={`${size}px`}
+            height={`${size}px`}
+            preserveAspectRatio="xMidYMid meet"
+            viewBox="0 0 384.97 384.97"
+            strokeWidth="1"
+        >
+            <g>
+                <path
+                    d="M372.939,216.545c-6.123,0-12.03,5.269-12.03,12.03v132.333H24.061V24.061h132.333c6.388,0,12.03-5.642,12.03-12.03
+			S162.409,0,156.394,0H24.061C10.767,0,0,10.767,0,24.061v336.848c0,13.293,10.767,24.061,24.061,24.061h336.848
+			c13.293,0,24.061-10.767,24.061-24.061V228.395C384.97,221.731,380.085,216.545,372.939,216.545z"
+                />
+                <path
+                    d="M372.939,0H252.636c-6.641,0-12.03,5.39-12.03,12.03s5.39,12.03,12.03,12.03h91.382L99.635,268.432
+			c-4.668,4.668-4.668,12.235,0,16.903c4.668,4.668,12.235,4.668,16.891,0L360.909,40.951v91.382c0,6.641,5.39,12.03,12.03,12.03
+			s12.03-5.39,12.03-12.03V12.03l0,0C384.97,5.558,379.412,0,372.939,0z"
+                />
             </g>
         </svg>
     );

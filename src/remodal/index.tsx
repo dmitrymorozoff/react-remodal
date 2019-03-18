@@ -5,6 +5,7 @@ import { Buttons } from "./components/buttons";
 import { CloseButton } from "./components/close-button";
 import { Content } from "./components/content";
 import { FullScreenButton } from "./components/fullscreen-button";
+import { Header } from "./components/header";
 import { Main } from "./components/main";
 import { Modal } from "./components/modal";
 import { Outer } from "./components/outer";
@@ -20,6 +21,7 @@ export class Remodal extends React.Component<IRemodalProps, IRemodalState> {
         super(props);
         this.state = {
             open: false,
+            fullscreen: false,
             isKeyDown: false,
         };
     }
@@ -28,6 +30,11 @@ export class Remodal extends React.Component<IRemodalProps, IRemodalState> {
         if (!prevState.open && nextProps.isOpen && !prevState.isKeyDown) {
             return {
                 open: true,
+            };
+        }
+        if (!prevState.fullscreen && nextProps.isFullScreen) {
+            return {
+                fullscreen: true,
             };
         }
         return null;
@@ -102,6 +109,12 @@ export class Remodal extends React.Component<IRemodalProps, IRemodalState> {
         onOverlayClick(event);
     };
 
+    public onFullScreenButtonClick = () => {
+        this.setState({
+            fullscreen: !this.state.fullscreen,
+        });
+    };
+
     public render(): JSX.Element {
         const {
             children,
@@ -116,16 +129,17 @@ export class Remodal extends React.Component<IRemodalProps, IRemodalState> {
             className,
             portalClassName,
             customCloseIcon,
-            isFullScreen,
+            customFullScreenIcon,
             fullScreenButtonSize,
             isShowFullScreenButton,
         } = this.props;
-        const { open } = this.state;
+        const { open, fullscreen } = this.state;
 
         return (
             <Portal portalClassName={portalClassName}>
                 <Outer
                     isOpen={open}
+                    isFullScreen={fullscreen}
                     style={style.overlay}
                     animationDuration={animationDuration}
                     onClick={this.onOverlayClickHandler}
@@ -135,6 +149,7 @@ export class Remodal extends React.Component<IRemodalProps, IRemodalState> {
                         onClick={this.onModalClick}
                         style={style.modal}
                         isOpen={open}
+                        isFullScreen={fullscreen}
                         animationDuration={animationDuration}
                         isScrollable={isScrollable}
                         className={cx(`${BASE_CLASSNAME}__modal`, {
@@ -147,37 +162,44 @@ export class Remodal extends React.Component<IRemodalProps, IRemodalState> {
                                 [`${BASE_CLASSNAME}__main_open`]: open,
                             })}
                         >
-                            {isShowCloseButton && (
-                                <CloseButton
-                                    customCloseIcon={customCloseIcon}
-                                    closeButtonSize={closeButtonSize}
-                                    onClick={this.closeModal}
-                                    style={style.closeButton}
-                                    className={cx(`${BASE_CLASSNAME}__close-btn`, {
-                                        [`${BASE_CLASSNAME}__close-btn_open`]: open,
-                                    })}
-                                />
-                            )}
-                            {isShowFullScreenButton && (
-                                <FullScreenButton
-                                    customFullScreenIcon={customCloseIcon}
-                                    fullScreenButtonSize={fullScreenButtonSize}
-                                    style={style.closeButton}
-                                    className={cx(`${BASE_CLASSNAME}__fullscreen-btn`, {
-                                        [`${BASE_CLASSNAME}__fullscreen_open`]: open,
-                                    })}
-                                />
-                            )}
-                            {title && (
-                                <Title
-                                    style={style.title}
-                                    className={cx(`${BASE_CLASSNAME}__title`, {
-                                        [`${BASE_CLASSNAME}__title_open`]: open,
-                                    })}
-                                >
-                                    {title}
-                                </Title>
-                            )}
+                            <Header
+                                className={cx(`${BASE_CLASSNAME}__header`, {
+                                    [`${BASE_CLASSNAME}__header_open`]: open,
+                                })}
+                            >
+                                {isShowCloseButton && (
+                                    <CloseButton
+                                        customCloseIcon={customCloseIcon}
+                                        closeButtonSize={closeButtonSize}
+                                        onClick={this.closeModal}
+                                        style={style.closeButton}
+                                        className={cx(`${BASE_CLASSNAME}__close-btn`, {
+                                            [`${BASE_CLASSNAME}__close-btn_open`]: open,
+                                        })}
+                                    />
+                                )}
+                                {isShowFullScreenButton && (
+                                    <FullScreenButton
+                                        customFullScreenIcon={customFullScreenIcon}
+                                        fullScreenButtonSize={fullScreenButtonSize}
+                                        style={style.fullScreenButton}
+                                        onClick={this.onFullScreenButtonClick}
+                                        className={cx(`${BASE_CLASSNAME}__fullscreen-btn`, {
+                                            [`${BASE_CLASSNAME}__fullscreen_open`]: open,
+                                        })}
+                                    />
+                                )}
+                                {title && (
+                                    <Title
+                                        style={style.title}
+                                        className={cx(`${BASE_CLASSNAME}__title`, {
+                                            [`${BASE_CLASSNAME}__title_open`]: open,
+                                        })}
+                                    >
+                                        {title}
+                                    </Title>
+                                )}
+                            </Header>
                             <Content
                                 style={style.content}
                                 className={cx(`${BASE_CLASSNAME}__content`, {

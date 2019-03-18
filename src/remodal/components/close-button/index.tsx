@@ -5,19 +5,18 @@ import { ICloseButtonProps } from "./types";
 const StyledCloseButton = styled.span`
     position: absolute;
     cursor: pointer;
-    top: 16px;
-    right: 16px;
+    top: 20px;
+    right: 20px;
     width: ${(props: ICloseButtonProps) => props.closeButtonSize}px;
     height: ${(props: ICloseButtonProps) => props.closeButtonSize}px;
     &:before,
     &:after {
         position: absolute;
         content: "";
-        height: 2px;
+        height: 1px;
         width: 100%;
         top: 50%;
         left: 0;
-        margin-top: -1px;
         background: #000;
         transition: 0.2s;
     }
@@ -31,8 +30,12 @@ const StyledCloseButton = styled.span`
 
 export const CloseButton: React.SFC<ICloseButtonProps> = (props: ICloseButtonProps): any => {
     const { customCloseIcon: CustomCloseIcon } = props;
+    const newProps: ICloseButtonProps = Object.assign({}, props);
+    delete newProps.customCloseIcon;
+    delete newProps.closeButtonSize;
+
     return (
-        (CustomCloseIcon && React.cloneElement(CustomCloseIcon, { ...props })) || (
+        (CustomCloseIcon && React.cloneElement(CustomCloseIcon, { ...newProps })) || (
             <StyledCloseButton {...props} />
         )
     );

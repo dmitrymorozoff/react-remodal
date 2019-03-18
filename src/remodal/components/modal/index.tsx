@@ -15,11 +15,21 @@ const scrollableStyles = css`
 
 export const Modal = styled.div`
     background: white;
-    width: 500px;
-    height: auto;
+    max-width: none;
+    width: ${(props: IModalProps) => (props.isFullScreen ? "100%" : "500px")};
+    height: ${(props: IModalProps) => (props.isFullScreen ? "100%" : "auto")};
     outline: none;
     z-index: 2;
     font-size: 18px;
-    border: 2px solid #000;
-    ${(props: IModalProps) => (props.isScrollable ? scrollableStyles : notScrollableStyles)};
+    border-radius: ${(props: IModalProps) => (props.isFullScreen ? "0" : "2px")};
+    overflow: hidden;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+    ${(props: IModalProps) => {
+        if (props.isScrollable && !props.isFullScreen) {
+            return scrollableStyles;
+        }
+        if (!props.isFullScreen) {
+            return notScrollableStyles;
+        }
+    }}
 `;

@@ -1,16 +1,24 @@
 const cx = require("classnames");
+import { darken } from "polished";
 import * as React from "react";
 import styled from "styled-components";
 import { IButtonItemProps } from "../../types";
 import { BASE_CLASSNAME } from "../../vars";
 import { IButtonProps, IButtonsProps, StatelessComponentArgs } from "./types";
 
+enum StatusColor {
+    Success = "#66cdaa",
+    Warning = "#f4a460",
+    Error = "#ff6347",
+}
+
 export const ButtonsWrapper = styled.div`
     font-size: inherit;
     display: flex;
     flex: 0 1 auto;
     width: 100%;
-    border-top: 2px solid #000;
+    padding-top: 0px;
+    box-sizing: border-box;
 `;
 
 export const Button = styled.button`
@@ -20,8 +28,8 @@ export const Button = styled.button`
     border: 0;
     cursor: pointer;
     box-sizing: border-box;
-    line-height: 40px;
-    height: 50px;
+    line-height: 60px;
+    height: 60px;
     text-transform: uppercase;
     color: inherit;
     outline: none;
@@ -29,14 +37,17 @@ export const Button = styled.button`
     font-family: inherit;
     flex: ${(props: IButtonProps) => `1 1 ${100 / props.size}%`};
     transition: 0.2s;
+    background-color: #66cdaa;
+    border-bottom: 4px solid ${darken(0.125, "#66cdaa")};
+    color: #fff;
     &:hover {
-        background-color: rgba(0, 0, 0, 0.05);
+        background-color: ${darken(0.05, "#66cdaa")};
     }
     &:active {
-        background-color: rgba(0, 0, 0, 0.1);
+        background-color: ${darken(0.1, "#66cdaa")};
     }
     &:not(:first-of-type) {
-        border-left: 2px solid #000;
+        border-left: 1px solid ${darken(0.125, "#66cdaa")};
     }
 `;
 
