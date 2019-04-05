@@ -4,29 +4,17 @@ import * as ReactDOM from "react-dom";
 // import { ModalProvider, useModal } from "react-modal-hook";
 import { Remodal, RemodalProvider, useRemodal } from "../src";
 
-interface IState {
-    isOpenModal: boolean;
-}
-
 export const App = () => {
-    const [openRemodal1, closeRemodal1] = useRemodal(() => (
-        <Remodal isOpen={true} onClose={closeRemodal1}>
-            2
+    const [openRemodal, closeRemodal] = useRemodal(() => (
+        <Remodal isOpen={true} onClose={closeRemodal}>
+            Clicking yes will make Comic Sans you new system default font. Seriously have you thought this
+            through?
         </Remodal>
     ));
 
-    const [openRemodal2, closeRemodal2] = useRemodal(() => (
-        <Remodal isOpen={true} onClose={closeRemodal2}>
-            1
-            <button className="btn" onClick={openRemodal1}>
-                Open Modal 2
-            </button>
-        </Remodal>
-    ));
-    console.log({ openRemodal1, openRemodal2 });
     return (
         <div className="container">
-            <button className="btn" onClick={openRemodal2}>
+            <button className="btn" onClick={openRemodal}>
                 Open Modal
             </button>
         </div>

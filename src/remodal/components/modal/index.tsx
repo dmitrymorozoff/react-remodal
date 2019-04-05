@@ -16,7 +16,7 @@ const scrollableStyles = css`
 export const Modal = styled.div`
     background: white;
     max-width: none;
-    width: ${(props: IModalProps) => (props.isFullScreen ? "100%" : "500px")};
+    width: ${(props: IModalProps) => (props.isFullScreen ? "100%" : "525px")};
     height: ${(props: IModalProps) => (props.isFullScreen ? "100%" : "auto")};
     outline: none;
     z-index: 2;
@@ -24,6 +24,8 @@ export const Modal = styled.div`
     border-radius: ${(props: IModalProps) => (props.isFullScreen ? "0" : "2px")};
     overflow: hidden;
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+    border: 1px solid #e1dfdf;
+    border-bottom: 0;
     ${(props: IModalProps) => {
         if (props.isScrollable && !props.isFullScreen) {
             return scrollableStyles;

@@ -21,7 +21,15 @@ type OnCloseCallbackFunction = () => void;
 type OnOverlayClickCallbackFunction = (event: React.MouseEvent<HTMLDivElement>) => void;
 type OnEscKeyDownCallbackFunction = (event: KeyboardEvent) => void;
 
+export enum RemodalType {
+    success = "success",
+    warning = "warning",
+    error = "error",
+    info = "info",
+}
+
 export interface IRemodalProps {
+    type: RemodalType;
     closeOnOverlayClick: boolean;
     isOpen: boolean;
     closeOnEsc: boolean;
@@ -94,14 +102,17 @@ export const defaultProps = {
     onClose: () => ({}),
     onOverlayClick: () => ({}),
     style: {},
-    isShowCloseButton: true,
-    isShowFullScreenButton: true,
+    isShowCloseButton: false,
+    isShowFullScreenButton: false,
     closeButtonSize: 20,
     fullScreenButtonSize: 20,
-    buttons: [{ title: "Close", handler: () => ({}) }, { title: "Submit", handler: () => ({}) }],
+    buttons: [
+        { title: "Hell, no!", handler: () => ({}) },
+        { title: "Yes, I'am insane!", handler: () => ({}) },
+    ],
     animationDuration: 300,
     isScrollable: false,
-    title: "Modal Component",
+    title: "Are you sure you want to do that?",
     className: "my-custom-remodal-class",
     portalClassName: PORTAL_CLASSNAME,
 };

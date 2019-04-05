@@ -20,6 +20,6 @@ export const Outer = styled.div`
     transition: ${(props: IOuterProps) => props.animationDuration}ms;
     transition-timing-function: ease-out;
     perspective: 1000px;
-    background: rgba(0, 0, 0, 0.75);
+    background: #26273580;
     ${(props: IOuterProps) => props.isFullScreen && fullScreenStyles}
 `;

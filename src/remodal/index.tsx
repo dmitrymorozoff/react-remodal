@@ -117,6 +117,7 @@ export class Remodal extends React.Component<IRemodalProps, IRemodalState> {
 
     public render(): JSX.Element {
         const {
+            type,
             children,
             style,
             isShowCloseButton,
@@ -143,7 +144,10 @@ export class Remodal extends React.Component<IRemodalProps, IRemodalState> {
                     style={style.overlay}
                     animationDuration={animationDuration}
                     onClick={this.onOverlayClickHandler}
-                    className={cx(BASE_CLASSNAME, className, { [`${BASE_CLASSNAME}_open`]: open })}
+                    className={cx(BASE_CLASSNAME, className, {
+                        [`${BASE_CLASSNAME}_open`]: open,
+                        [`${BASE_CLASSNAME}_${type}`]: type,
+                    })}
                 >
                     <Modal
                         onClick={this.onModalClick}
@@ -154,17 +158,20 @@ export class Remodal extends React.Component<IRemodalProps, IRemodalState> {
                         isScrollable={isScrollable}
                         className={cx(`${BASE_CLASSNAME}__modal`, {
                             [`${BASE_CLASSNAME}__modal_open`]: open,
+                            [`${BASE_CLASSNAME}__modal_${type}`]: type,
                         })}
                     >
                         <Main
                             style={style.main}
                             className={cx(`${BASE_CLASSNAME}__main`, {
                                 [`${BASE_CLASSNAME}__main_open`]: open,
+                                [`${BASE_CLASSNAME}__main_${type}`]: type,
                             })}
                         >
                             <Header
                                 className={cx(`${BASE_CLASSNAME}__header`, {
                                     [`${BASE_CLASSNAME}__header_open`]: open,
+                                    [`${BASE_CLASSNAME}__header_${type}`]: type,
                                 })}
                             >
                                 {isShowCloseButton && (
@@ -175,6 +182,7 @@ export class Remodal extends React.Component<IRemodalProps, IRemodalState> {
                                         style={style.closeButton}
                                         className={cx(`${BASE_CLASSNAME}__close-btn`, {
                                             [`${BASE_CLASSNAME}__close-btn_open`]: open,
+                                            [`${BASE_CLASSNAME}__close-btn_${type}`]: type,
                                         })}
                                     />
                                 )}
@@ -186,6 +194,7 @@ export class Remodal extends React.Component<IRemodalProps, IRemodalState> {
                                         onClick={this.onFullScreenButtonClick}
                                         className={cx(`${BASE_CLASSNAME}__fullscreen-btn`, {
                                             [`${BASE_CLASSNAME}__fullscreen_open`]: open,
+                                            [`${BASE_CLASSNAME}__fullscreen_${type}`]: type,
                                         })}
                                     />
                                 )}
@@ -194,6 +203,7 @@ export class Remodal extends React.Component<IRemodalProps, IRemodalState> {
                                         style={style.title}
                                         className={cx(`${BASE_CLASSNAME}__title`, {
                                             [`${BASE_CLASSNAME}__title_open`]: open,
+                                            [`${BASE_CLASSNAME}__title_${type}`]: type,
                                         })}
                                     >
                                         {title}
@@ -204,6 +214,7 @@ export class Remodal extends React.Component<IRemodalProps, IRemodalState> {
                                 style={style.content}
                                 className={cx(`${BASE_CLASSNAME}__content`, {
                                     [`${BASE_CLASSNAME}__content_open`]: open,
+                                    [`${BASE_CLASSNAME}__content_${type}`]: type,
                                 })}
                             >
                                 {innerHTML && Parser(innerHTML)}
@@ -211,6 +222,7 @@ export class Remodal extends React.Component<IRemodalProps, IRemodalState> {
                             </Content>
                         </Main>
                         <Buttons
+                            type={type}
                             buttons={buttons}
                             buttonStyle={style.button}
                             buttonsWrapperStyle={style.buttonsWrapper}

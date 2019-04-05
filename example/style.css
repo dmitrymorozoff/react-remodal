@@ -9,19 +9,19 @@
 }
 
 .btn {
-    font-size: 22px;
-    padding: 16px 45px;
+    font-size: 18px;
+    text-transform: uppercase;
+    padding: 20px 45px;
     border: none;
     cursor: pointer;
     outline: none;
     font-family: "Roboto", sans-serif;
     color: #fff;
-    background-color: #66cdaa;
-    border-bottom: 4px solid #3cb78d;
+    background-color: #818190;
     transition: .2s;
 }
 
 .btn:active {
-    background-color: #40c095;
+    background-color: #636275;
 
 }

@@ -13,7 +13,6 @@ export const useRemodal = (
     const openModal = useCallback(() => setOpen(true), []);
     const closeModal = useCallback(() => setOpen(false), []);
     const uniqueId = useMemo(getUniqueId, []);
-    console.log("close modal", { uniqueId, isOpen });
 
     useEffect(() => {
         if (isOpen) {
