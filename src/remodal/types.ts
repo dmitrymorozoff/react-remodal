@@ -102,7 +102,7 @@ export const defaultProps = {
     onClose: () => ({}),
     onOverlayClick: () => ({}),
     style: {},
-    isShowCloseButton: false,
+    isShowCloseButton: true,
     isShowFullScreenButton: false,
     closeButtonSize: 20,
     fullScreenButtonSize: 20,

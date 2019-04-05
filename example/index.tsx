@@ -1,7 +1,6 @@
 import * as React from "react";
 import { useState } from "react";
 import * as ReactDOM from "react-dom";
-// import { ModalProvider, useModal } from "react-modal-hook";
 import { Remodal, RemodalProvider, useRemodal } from "../src";
 
 export const App = () => {
