@@ -26,3 +26,5 @@ export const FullScreenButton: React.SFC<IFullScreenButtonProps> = (props: IFull
         )
     );
 };
+
+FullScreenButton.displayName = "FullScreenButton";

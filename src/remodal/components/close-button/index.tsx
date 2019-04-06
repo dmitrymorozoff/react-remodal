@@ -40,3 +40,5 @@ export const CloseButton: React.SFC<ICloseButtonProps> = (props: ICloseButtonPro
         )
     );
 };
+
+CloseButton.displayName = "CloseButton";

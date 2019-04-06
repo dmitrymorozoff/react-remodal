@@ -5,3 +5,5 @@ export const Main = styled.div`
     width: 100%;
     box-sizing: border-box;
 `;
+
+Main.displayName = "Main";

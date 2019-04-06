@@ -4,3 +4,5 @@ export const Title = styled.div`
     font-size: 42px;
     font-weight: 300;
 `;
+
+Title.displayName = "Title";

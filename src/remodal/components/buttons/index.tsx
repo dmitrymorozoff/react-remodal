@@ -38,7 +38,7 @@ export const ButtonsWrapper = styled.div`
     box-sizing: border-box;
 `;
 
-export const Button = styled.button`
+export const Button: React.SFC<IButtonProps & React.HTMLProps<HTMLButtonElement>> = styled.button`
     background: transparent;
     padding: 0;
     margin: 0;
@@ -68,6 +68,8 @@ export const Button = styled.button`
         /* margin-left: 10px; */
     }
 `;
+
+Button.displayName = "Button";
 
 export const Buttons = ({
     type,
@@ -108,3 +110,5 @@ export const Buttons = ({
         </ButtonsWrapper>
     );
 };
+
+Buttons.displayName = "Buttons";

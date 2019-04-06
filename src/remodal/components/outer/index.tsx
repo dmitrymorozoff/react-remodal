@@ -23,3 +23,5 @@ export const Outer = styled.div`
     background: #26273580;
     ${(props: IOuterProps) => props.isFullScreen && fullScreenStyles}
 `;
+
+Outer.displayName = "Outer";

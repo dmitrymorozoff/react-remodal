@@ -7,3 +7,5 @@ export const Content = styled.div`
     padding: 22px 40px;
     box-sizing: border-box;
 `;
+
+Content.displayName = "Content";

@@ -59,38 +59,38 @@ export interface IRemodalState {
     isKeyDown: boolean;
 }
 
-const defaultStyles = {
-    modal: {
-        width: "800px",
-    },
-    overlay: {
-        backgroundColor: "rgba(185,185,185,0.95)",
-    },
-    main: {
-        padding: "40px",
-    },
-    closeButton: {
-        width: "26px",
-        height: "26px",
-    },
-    fullScreenButton: {
-        width: "26px",
-        height: "26px",
-    },
-    title: {
-        fontSize: "32px",
-    },
-    content: {
-        fontSize: "22px",
-    },
-    buttonsWrapper: {
-        borderWidth: "2px",
-    },
-    button: {
-        height: "80px",
-        fontSize: "22px",
-    },
-};
+// const defaultStyles = {
+//     modal: {
+//         width: "800px",
+//     },
+//     overlay: {
+//         backgroundColor: "rgba(185,185,185,0.95)",
+//     },
+//     main: {
+//         padding: "40px",
+//     },
+//     closeButton: {
+//         width: "26px",
+//         height: "26px",
+//     },
+//     fullScreenButton: {
+//         width: "26px",
+//         height: "26px",
+//     },
+//     title: {
+//         fontSize: "32px",
+//     },
+//     content: {
+//         fontSize: "22px",
+//     },
+//     buttonsWrapper: {
+//         borderWidth: "2px",
+//     },
+//     button: {
+//         height: "80px",
+//         fontSize: "22px",
+//     },
+// };
 
 export const PORTAL_CLASSNAME = "react-remodal-portal";
 

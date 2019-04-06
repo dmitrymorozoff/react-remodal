@@ -6,3 +6,5 @@ export const Header = styled.div`
     box-sizing: border-box;
     border-bottom: 1px solid #ddd;
 `;
+
+Header.displayName = "Header";

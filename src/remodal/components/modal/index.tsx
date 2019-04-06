@@ -35,3 +35,5 @@ export const Modal = styled.div`
         }
     }}
 `;
+
+Modal.displayName = "Modal";
