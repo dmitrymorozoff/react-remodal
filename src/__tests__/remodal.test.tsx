@@ -56,7 +56,6 @@ describe("Remodal", () => {
         expect((output.state() as any).open).toBe(true);
 
         output.setProps({ isOpen: false });
-
         expect((output.state() as any).open).toBe(false);
     });
 });

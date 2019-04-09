@@ -43,7 +43,7 @@ export interface IRemodalProps {
     closeButtonSize: number;
     fullScreenButtonSize: number;
     buttons: IButtonItemProps[];
-    animationDuration: number;
+    closeTimeoutMS: number;
     isScrollable: boolean;
     title: string;
     innerHTML: string;
@@ -57,6 +57,9 @@ export interface IRemodalState {
     open: boolean;
     fullscreen: boolean;
     isKeyDown: boolean;
+    isAfterOpen: boolean;
+    isBeforeClose: boolean;
+    closesTime: number;
 }
 
 // const defaultStyles = {
@@ -110,7 +113,7 @@ export const defaultProps = {
         { title: "Hell, no!", handler: () => ({}) },
         { title: "Yes, I'am insane!", handler: () => ({}) },
     ],
-    animationDuration: 300,
+    closeTimeoutMS: 300,
     isScrollable: false,
     title: "Are you sure you want to do that?",
     className: "my-custom-remodal-class",

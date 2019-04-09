@@ -1,6 +1,8 @@
 export interface IModalProps {
     isOpen: boolean;
     isFullScreen: boolean;
-    animationDuration: number;
+    closeTimeoutMS: number;
     isScrollable: boolean;
+    isAfterOpen: boolean;
+    isBeforeClose: boolean;
 }
