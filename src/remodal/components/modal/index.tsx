@@ -33,6 +33,7 @@ export const Modal = styled.div`
         if (props.isBeforeClose) {
             trans = "translateX(100%)";
         }
+
         return trans;
     }};
     opacity: ${(props: IModalProps) => {
@@ -43,6 +44,7 @@ export const Modal = styled.div`
         if (props.isBeforeClose) {
             trans = "0";
         }
+
         return trans;
     }};
     ${(props: IModalProps) => {

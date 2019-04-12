@@ -1,9 +1,10 @@
+import * as React from "react";
+
 export interface IStyleProps {
     overlay?: React.CSSProperties;
     modal?: React.CSSProperties;
     main?: React.CSSProperties;
     closeButton?: React.CSSProperties;
-    fullScreenButton?: React.CSSProperties;
     title?: React.CSSProperties;
     content?: React.CSSProperties;
     buttonsWrapper?: React.CSSProperties;
@@ -38,10 +39,8 @@ export interface IRemodalProps {
     onOverlayClick: OnOverlayClickCallbackFunction;
     style: IStyleProps;
     isShowCloseButton: boolean;
-    isShowFullScreenButton: boolean;
     isFullScreen: boolean;
     closeButtonSize: number;
-    fullScreenButtonSize: number;
     buttons: IButtonItemProps[];
     closeTimeoutMS: number;
     isScrollable: boolean;
@@ -49,8 +48,15 @@ export interface IRemodalProps {
     innerHTML: string;
     className: string;
     portalClassName: string;
+    modalClassName: string;
+    mainClassName: string;
+    headerClassName: string;
+    closeButtonClassName: string;
+    titleClassName: string;
+    contentClassName: string;
+    buttonsClassName: string;
+    buttonClassName: string;
     customCloseIcon: JSX.Element;
-    customFullScreenIcon: JSX.Element;
 }
 
 export interface IRemodalState {
@@ -99,25 +105,32 @@ export const PORTAL_CLASSNAME = "react-remodal-portal";
 
 export const defaultProps = {
     closeOnOverlayClick: true,
-    isOpen: false,
     closeOnEsc: true,
     onEscKeyDown: () => ({}),
     onClose: () => ({}),
     onOverlayClick: () => ({}),
+    isOpen: false,
+    isFullScreen: false,
     style: {},
     isShowCloseButton: true,
-    isShowFullScreenButton: false,
     closeButtonSize: 20,
-    fullScreenButtonSize: 20,
     buttons: [
         { title: "Hell, no!", handler: () => ({}) },
         { title: "Yes, I'am insane!", handler: () => ({}) },
     ],
-    closeTimeoutMS: 300,
+    closeTimeoutMS: 0,
     isScrollable: false,
     title: "Are you sure you want to do that?",
-    className: "my-custom-remodal-class",
+    className: "my-custom-class-remodal",
     portalClassName: PORTAL_CLASSNAME,
+    modalClassName: "my-custom-class-modal",
+    mainClassName: "my-custom-class-main",
+    headerClassName: "my-custom-class-header",
+    closeButtonClassName: "my-custom-class-closeButton",
+    titleClassName: "my-custom-class-title",
+    contentClassName: "my-custom-class-content",
+    buttonsClassName: "my-custom-class-buttons",
+    buttonClassName: "my-custom-class-button",
 };
 
 export type StatelessComponentArgs<T> = T & { children?: React.ReactNode };

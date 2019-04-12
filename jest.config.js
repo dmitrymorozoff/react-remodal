@@ -5,8 +5,7 @@ module.exports = {
     snapshotSerializers: ["<rootDir>/node_modules/enzyme-to-json/serializer"],
     globals: {
         "ts-jest": {
-            // useBabelrc: true,
-            tsConfigFile: "tsconfig.jest.json",
+            tsConfig: "tsconfig.jest.json",
         },
     },
     testRegex: TEST_REGEX,

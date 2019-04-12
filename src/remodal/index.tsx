@@ -4,7 +4,6 @@ import * as React from "react";
 import { Buttons } from "./components/buttons";
 import { CloseButton } from "./components/close-button";
 import { Content } from "./components/content";
-import { FullScreenButton } from "./components/fullscreen-button";
 import { Header } from "./components/header";
 import { Main } from "./components/main";
 import { Modal } from "./components/modal";
@@ -46,6 +45,7 @@ export class Remodal extends React.Component<IRemodalProps, IRemodalState> {
                 fullscreen: true,
             };
         }
+
         return null;
     }
 
@@ -103,22 +103,33 @@ export class Remodal extends React.Component<IRemodalProps, IRemodalState> {
     };
 
     public closeModal = (): void => {
-        const closesTime = Date.now() + this.props.closeTimeoutMS;
+        const { closeTimeoutMS } = this.props;
+        if (closeTimeoutMS <= 0) {
+            this.closeHandler();
+
+            return;
+        }
+        const closesTime = Date.now() + closeTimeoutMS;
         this.setState({ closesTime, isBeforeClose: true }, () => {
             this.closeTimer = setTimeout(() => {
-                this.setState({
-                    open: false,
-                    isAfterOpen: false,
-                    isBeforeClose: false,
-                });
-                const { onClose } = this.props;
-                onClose();
-                const { closeOnEsc } = this.props;
-                if (closeOnEsc) {
-                    document.removeEventListener("keydown", this.onKeyDownHandler);
-                }
+                this.closeHandler();
             }, this.state.closesTime - Date.now());
         });
+    };
+
+    public closeHandler = () => {
+        this.setState({
+            open: false,
+            isAfterOpen: false,
+            isBeforeClose: false,
+        });
+
+        const { onClose } = this.props;
+        onClose();
+        const { closeOnEsc } = this.props;
+        if (closeOnEsc) {
+            document.removeEventListener("keydown", this.onKeyDownHandler);
+        }
     };
 
     public onModalClick = (event: React.MouseEvent<HTMLDivElement>): void => {
@@ -126,14 +137,23 @@ export class Remodal extends React.Component<IRemodalProps, IRemodalState> {
     };
 
     public onOverlayClickHandler = (event: React.MouseEvent<HTMLDivElement>): void => {
-        this.closeModal();
-        const { onOverlayClick } = this.props;
-        onOverlayClick(event);
+        const { onOverlayClick, closeOnOverlayClick } = this.props;
+        if (closeOnOverlayClick) {
+            this.closeModal();
+            onOverlayClick(event);
+        }
     };
 
-    public onFullScreenButtonClick = () => {
-        this.setState({
-            fullscreen: !this.state.fullscreen,
+    public getClassNames = (userClassName: string, appendClassName?: string) => {
+        const { type } = this.props;
+        const { open, isAfterOpen, isBeforeClose } = this.state;
+        const newAppendClassName = appendClassName ? `__${appendClassName}` : "";
+
+        return cx(`${BASE_CLASSNAME}${newAppendClassName}`, userClassName, {
+            [`${BASE_CLASSNAME}${newAppendClassName}_open`]: open,
+            [`${BASE_CLASSNAME}${newAppendClassName}_is-after-open`]: isAfterOpen,
+            [`${BASE_CLASSNAME}${newAppendClassName}_is-before-close`]: isBeforeClose,
+            [`${BASE_CLASSNAME}${newAppendClassName}_${type}`]: type,
         });
     };
 
@@ -151,10 +171,15 @@ export class Remodal extends React.Component<IRemodalProps, IRemodalState> {
             innerHTML,
             className,
             portalClassName,
+            modalClassName,
+            mainClassName,
+            headerClassName,
+            closeButtonClassName,
+            titleClassName,
+            contentClassName,
+            buttonsClassName,
+            buttonClassName,
             customCloseIcon,
-            customFullScreenIcon,
-            fullScreenButtonSize,
-            isShowFullScreenButton,
         } = this.props;
         const { open, fullscreen, isAfterOpen, isBeforeClose } = this.state;
 
@@ -168,12 +193,7 @@ export class Remodal extends React.Component<IRemodalProps, IRemodalState> {
                     isBeforeClose={isBeforeClose}
                     closeTimeoutMS={closeTimeoutMS}
                     onClick={this.onOverlayClickHandler}
-                    className={cx(BASE_CLASSNAME, className, {
-                        [`${BASE_CLASSNAME}_open`]: open,
-                        [`${BASE_CLASSNAME}_is-after-open`]: isAfterOpen,
-                        [`${BASE_CLASSNAME}_is-before-close`]: isBeforeClose,
-                        [`${BASE_CLASSNAME}_${type}`]: type,
-                    })}
+                    className={this.getClassNames(className)}
                 >
                     <Modal
                         onClick={this.onModalClick}
@@ -184,70 +204,36 @@ export class Remodal extends React.Component<IRemodalProps, IRemodalState> {
                         isBeforeClose={isBeforeClose}
                         closeTimeoutMS={closeTimeoutMS}
                         isScrollable={isScrollable}
-                        className={cx(`${BASE_CLASSNAME}__modal`, {
-                            [`${BASE_CLASSNAME}__modal_open`]: open,
-                            [`${BASE_CLASSNAME}__modal_is-after-open`]: isAfterOpen,
-                            [`${BASE_CLASSNAME}__modal_is-before-close`]: isBeforeClose,
-                            [`${BASE_CLASSNAME}__modal_${type}`]: type,
-                        })}
+                        className={this.getClassNames(modalClassName, "modal")}
                     >
                         {open && (
                             <React.Fragment>
                                 <Main
                                     style={style.main}
-                                    className={cx(`${BASE_CLASSNAME}__main`, {
-                                        [`${BASE_CLASSNAME}__main_open`]: open,
-                                        [`${BASE_CLASSNAME}__main_${type}`]: type,
-                                    })}
+                                    className={this.getClassNames(mainClassName, "main")}
                                 >
-                                    <Header
-                                        className={cx(`${BASE_CLASSNAME}__header`, {
-                                            [`${BASE_CLASSNAME}__header_open`]: open,
-                                            [`${BASE_CLASSNAME}__header_${type}`]: type,
-                                        })}
-                                    >
-                                        {isShowCloseButton && (
-                                            <CloseButton
-                                                customCloseIcon={customCloseIcon}
-                                                closeButtonSize={closeButtonSize}
-                                                onClick={this.closeModal}
-                                                style={style.closeButton}
-                                                className={cx(`${BASE_CLASSNAME}__close-btn`, {
-                                                    [`${BASE_CLASSNAME}__close-btn_open`]: open,
-                                                    [`${BASE_CLASSNAME}__close-btn_${type}`]: type,
-                                                })}
-                                            />
-                                        )}
-                                        {isShowFullScreenButton && (
-                                            <FullScreenButton
-                                                customFullScreenIcon={customFullScreenIcon}
-                                                fullScreenButtonSize={fullScreenButtonSize}
-                                                style={style.fullScreenButton}
-                                                onClick={this.onFullScreenButtonClick}
-                                                className={cx(`${BASE_CLASSNAME}__fullscreen-btn`, {
-                                                    [`${BASE_CLASSNAME}__fullscreen_open`]: open,
-                                                    [`${BASE_CLASSNAME}__fullscreen_${type}`]: type,
-                                                })}
-                                            />
-                                        )}
-                                        {title && (
+                                    {isShowCloseButton && (
+                                        <CloseButton
+                                            customCloseIcon={customCloseIcon}
+                                            closeButtonSize={closeButtonSize}
+                                            onClick={this.closeModal}
+                                            style={style.closeButton}
+                                            className={this.getClassNames(closeButtonClassName, "close-btn")}
+                                        />
+                                    )}
+                                    {title && (
+                                        <Header className={this.getClassNames(headerClassName, "header")}>
                                             <Title
                                                 style={style.title}
-                                                className={cx(`${BASE_CLASSNAME}__title`, {
-                                                    [`${BASE_CLASSNAME}__title_open`]: open,
-                                                    [`${BASE_CLASSNAME}__title_${type}`]: type,
-                                                })}
+                                                className={this.getClassNames(titleClassName, "title")}
                                             >
                                                 {title}
                                             </Title>
-                                        )}
-                                    </Header>
+                                        </Header>
+                                    )}
                                     <Content
                                         style={style.content}
-                                        className={cx(`${BASE_CLASSNAME}__content`, {
-                                            [`${BASE_CLASSNAME}__content_open`]: open,
-                                            [`${BASE_CLASSNAME}__content_${type}`]: type,
-                                        })}
+                                        className={this.getClassNames(contentClassName, "content")}
                                     >
                                         {innerHTML && Parser(innerHTML)}
                                         {children}
@@ -258,6 +244,8 @@ export class Remodal extends React.Component<IRemodalProps, IRemodalState> {
                                     buttons={buttons}
                                     buttonStyle={style.button}
                                     buttonsWrapperStyle={style.buttonsWrapper}
+                                    className={this.getClassNames(buttonsClassName, "buttons")}
+                                    buttonClassName={this.getClassNames(buttonClassName, "button")}
                                 />
                             </React.Fragment>
                         )}

@@ -1,3 +1,5 @@
+import * as React from "react";
+
 type ToggleRemodalFunction = () => void;
 type OpenRemodalFunction = () => void;
 type CloseRemodalFunction = () => void;

@@ -1,9 +1,7 @@
-const cx = require("classnames");
 import { darken } from "polished";
 import * as React from "react";
 import styled from "styled-components";
 import { IButtonItemProps, RemodalType } from "../../types";
-import { BASE_CLASSNAME } from "../../vars";
 import { IButtonProps, IButtonsProps, StatelessComponentArgs } from "./types";
 
 enum RemodalTypeColors {
@@ -38,8 +36,7 @@ export const ButtonsWrapper = styled.div`
     box-sizing: border-box;
 `;
 
-export const Button: React.SFC<IButtonProps & React.HTMLProps<HTMLButtonElement>> = styled.button`
-    background: transparent;
+export const Button: React.FC<IButtonProps & React.HTMLProps<HTMLButtonElement>> = styled.button`
     padding: 0;
     margin: 0;
     border: 0;
@@ -48,24 +45,18 @@ export const Button: React.SFC<IButtonProps & React.HTMLProps<HTMLButtonElement>
     line-height: 65px;
     height: 65px;
     text-transform: uppercase;
-    color: inherit;
     outline: none;
     font-size: inherit;
     font-family: inherit;
     flex: ${(props: IButtonProps) => `1 1 ${100 / props.size}%`};
     transition: 0.2s;
     background-color: ${(props: IButtonProps) => getColor(props)};
-    /* border-bottom: 4px solid ${(props: IButtonProps) => darken(0.125, getColor(props))}; */
     color: #000;
     &:hover {
         background-color: ${(props: IButtonProps) => darken(0.05, getColor(props))};
     }
     &:active {
         background-color: ${(props: IButtonProps) => darken(0.1, getColor(props))};
-    }
-    &:not(:first-of-type) {
-        /* border-left: 1px solid ${(props: IButtonProps) => darken(0.125, getColor(props))}; */
-        /* margin-left: 10px; */
     }
 `;
 
@@ -76,20 +67,18 @@ export const Buttons = ({
     buttons,
     buttonStyle,
     buttonsWrapperStyle,
+    className,
+    buttonClassName,
 }: StatelessComponentArgs<IButtonsProps>) => {
-    const countButtons = buttons.length;
-    if (countButtons <= 0) {
+    if (!Array.isArray(buttons)) {
         return null;
     }
+
+    const countButtons = buttons.length;
     const buttonSize = 100 / countButtons;
+
     return (
-        <ButtonsWrapper
-            style={buttonsWrapperStyle}
-            className={cx(`${BASE_CLASSNAME}__buttons`, {
-                [`${BASE_CLASSNAME}__buttons_open`]: open,
-                [`${BASE_CLASSNAME}__buttons_${type}`]: type,
-            })}
-        >
+        <ButtonsWrapper style={buttonsWrapperStyle} className={className}>
             {buttons.map(({ title, handler }: IButtonItemProps, index: number) => {
                 return (
                     <Button
@@ -98,10 +87,7 @@ export const Buttons = ({
                         onClick={handler}
                         key={index.toString()}
                         style={buttonStyle}
-                        className={cx(`${BASE_CLASSNAME}__button`, {
-                            [`${BASE_CLASSNAME}__button_open`]: open,
-                            [`${BASE_CLASSNAME}__button_${type}`]: type,
-                        })}
+                        className={buttonClassName}
                     >
                         {title}
                     </Button>

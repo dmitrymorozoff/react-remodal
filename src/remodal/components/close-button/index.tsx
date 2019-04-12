@@ -5,15 +5,15 @@ import { ICloseButtonProps } from "./types";
 const StyledCloseButton = styled.span`
     position: absolute;
     cursor: pointer;
-    top: 20px;
-    right: 20px;
+    top: 15px;
+    right: 15px;
     width: ${(props: ICloseButtonProps) => props.closeButtonSize}px;
     height: ${(props: ICloseButtonProps) => props.closeButtonSize}px;
     &:before,
     &:after {
         position: absolute;
         content: "";
-        height: 1px;
+        height: 2px;
         width: 100%;
         top: 50%;
         left: 0;
